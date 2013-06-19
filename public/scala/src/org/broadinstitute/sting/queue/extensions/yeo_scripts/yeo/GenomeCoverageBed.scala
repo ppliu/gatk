@@ -32,4 +32,3 @@ class GenomeCoverageBed extends CommandLineFunction {
 		    optional("-i", inBed) +  
 		    required("-g", genomeSize) + " > " + bedGraph
  this.isIntermediate = true
-}
