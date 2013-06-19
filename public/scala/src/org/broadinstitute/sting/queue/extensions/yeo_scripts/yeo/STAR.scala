@@ -13,7 +13,7 @@ class STAR extends CommandLineFunction {
  @Input(doc="output sam file", shortName = "outSam", fullName = "out_sam_file", required = true) 
  var outSam: File = _
  
- @Argument(doc="genome name (hg19...)", shortName = "genome", fullName = "genome", required = true) 
+ @Argument(doc="genome location", shortName = "genome", fullName = "genome", required = true) 
  var genome: String = _
  
  @Argument(doc="maximum number of reads to multimap", 
@@ -29,7 +29,7 @@ class STAR extends CommandLineFunction {
  def commandLine = "STAR +" +
   		required("--runMode", "alignReads") +
   		required("--runThreadN", "4") +
-  		required("--genomeDir", "/nas3/yeolab/Software/STAR/genomes/2.2.0/%s".format(genome)) +
+  		required("--genomeDir", genome) +
   		required("--genomeLoad", "LoadAndRemove") +
   		required("--readFilesIn", inFastq) +
   		required("--outSAMunmapped", "Within") +
