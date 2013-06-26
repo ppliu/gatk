@@ -112,6 +112,7 @@ trait CommandLineFunction extends QFunction with Logging {
   def jobDirectories = outputDirectories ++ inputs.map(_.getParentFile)
 
   override def description = commandLine
+  override def shortDescription = ""
 
   /**
    * Sets all field values.

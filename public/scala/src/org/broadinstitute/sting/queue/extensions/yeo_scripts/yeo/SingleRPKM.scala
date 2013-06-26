@@ -12,13 +12,11 @@ class SingleRPKM extends CommandLineFunction {
  @Output(doc="output RPKM file", shortName = "outRPKM", fullName = "out_rpkm_file", required = true) 
  var outRPKM: File = _
  
- @Argument(doc="species name", shortName = "s", fullName = "species", required = true) 
- var species: String = _
- 
- def commandLine = "perl /nas3/ppliu/gscripts/pipeflower/single_RPKM.pl " + 
-		   required("-input_1", inCount) + 
-		   required("-output", outRPKM) + 
-		   required("--species", species) 
+ override def shortDescription = "SingleRPKM" 
+ def commandLine = "single_RPKM.py " + 
+		   required("--input", inCount) + 
+		   required("--output", outRPKM)  
+		   
 		   
 		    
  this.isIntermediate = false

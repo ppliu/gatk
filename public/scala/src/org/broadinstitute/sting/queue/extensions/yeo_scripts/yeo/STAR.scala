@@ -10,7 +10,7 @@ class STAR extends CommandLineFunction {
  @Input(doc="input fastq file", shortName = "inFastq", fullName = "input_fastq_file", required = true) 
  var inFastq: File = _
  
- @Input(doc="output sam file", shortName = "outSam", fullName = "out_sam_file", required = true) 
+ @Output(doc="output sam file", shortName = "outSam", fullName = "out_sam_file", required = true) 
  var outSam: File = _
  
  @Argument(doc="genome location", shortName = "genome", fullName = "genome", required = true) 
@@ -19,16 +19,18 @@ class STAR extends CommandLineFunction {
  @Argument(doc="maximum number of reads to multimap", 
      shortName = "multimapNMax", 
      fullName = "multimapNMax", required = true)     
- var multimapNMax: Integer = 10
+ var multimapNMax: Int = 10
 
   @Argument(doc="the score range below the maximum score for multimapping alignments", 
       shortName = "outFilterMultimapScoreRange", 
       fullName = "outFilterMultimapScoreRange", required = true) 
-  var outFilterMultimapScoreRange: Integer = 1
+  var outFilterMultimapScoreRange: Int = 1
  
- def commandLine = "STAR +" +
+ this.nCoresRequest = Option(16) 
+ override def shortDescription = "STAR"  
+ def commandLine = "STAR " +
   		required("--runMode", "alignReads") +
-  		required("--runThreadN", "4") +
+  		required("--runThreadN", "16") +
   		required("--genomeDir", genome) +
   		required("--genomeLoad", "LoadAndRemove") +
   		required("--readFilesIn", inFastq) +
@@ -37,5 +39,5 @@ class STAR extends CommandLineFunction {
   		required("--outFilterMultimapScoreRange", outFilterMultimapScoreRange ) +
   		required("--outFileNamePrefix", outSam) +
   		required("--outStd", "SAM") + "> " + outSam
- this.isIntermediate = true
+ //this.isIntermediate = true
 }

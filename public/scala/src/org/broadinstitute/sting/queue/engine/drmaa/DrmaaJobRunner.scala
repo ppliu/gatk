@@ -49,8 +49,13 @@ class DrmaaJobRunner(val session: Session, val function: CommandLineFunction) ex
   def start() {
     session.synchronized {
       val drmaaJob: JobTemplate = session.createJobTemplate
-
-      drmaaJob.setJobName(function.description.take(jobNameLength).replaceAll(jobNameFilter, "_"))
+      
+      if(function.shortDescription.isEmpty) {
+         drmaaJob.setJobName(function.description.take(jobNameLength).replaceAll(jobNameFilter, "_"))
+      } else {
+      	 drmaaJob.setJobName(function.shortDescription.take(jobNameLength).replaceAll(jobNameFilter, "_"))
+      }
+      
 
       // Set the current working directory
       drmaaJob.setWorkingDirectory(function.commandDirectory.getPath)

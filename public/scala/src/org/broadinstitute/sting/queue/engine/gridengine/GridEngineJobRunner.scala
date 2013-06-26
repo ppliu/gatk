@@ -42,7 +42,8 @@ class GridEngineJobRunner(session: Session, function: CommandLineFunction) exten
 
   override protected def functionNativeSpec = {
     // Force the remote environment to inherit local environment settings
-    var nativeSpec: String = "-V"
+    var nativeSpec: String = ""
+    //var nativeSpec: String = " -V "
 
     // If a project name is set specify the project name
     if (function.jobProject != null)
@@ -58,9 +59,9 @@ class GridEngineJobRunner(session: Session, function: CommandLineFunction) exten
       nativeSpec += " -l %s=%dM".format(function.qSettings.residentRequestParameter, function.residentRequest.map(_ * 1024).get.ceil.toInt)
 
     // If the resident set size limit is defined specify the memory limit
-    if (function.residentLimit.isDefined)
-      nativeSpec += " -l h_rss=%dM".format(function.residentLimit.map(_ * 1024).get.ceil.toInt)
-
+    if (function.residentLimit.isDefined) {
+          //nativeSpec += " -l pmem=%dM".format(function.residentLimit.map(_ * 1024).get.ceil.toInt)
+    }
     // If more than 1 core is requested, set the proper request
     // if we aren't being jerks and just stealing cores (previous behavior)
     if ( function.nCoresRequest.getOrElse(1) > 1 ) {
@@ -68,7 +69,9 @@ class GridEngineJobRunner(session: Session, function: CommandLineFunction) exten
         logger.warn("Sending multicore job %s to farm without requesting appropriate number of cores (%d)".format(
           function.shortDescription, function.nCoresRequest.get))
       else
-        nativeSpec += " -pe %s %d".format(function.qSettings.parallelEnvironmentName, function.nCoresRequest.get)
+        nativeSpec += " -l nodes=1:ppn=%d ".format(function.nCoresRequest.get)
+    } else { //Always set the number of cores for proper resource management..., need to explicity call out the need for multicores in your script
+        nativeSpec += " -l nodes=1:ppn=1 "
     }
 
     // Pass on any job resource requests
@@ -81,7 +84,6 @@ class GridEngineJobRunner(session: Session, function: CommandLineFunction) exten
     val priority = functionPriority
     if (priority.isDefined)
       nativeSpec += " -p " + priority.get
-
     logger.debug("Native spec is: %s".format(nativeSpec))
     (nativeSpec + " " + super.functionNativeSpec).trim()
   }

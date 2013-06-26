@@ -12,17 +12,19 @@ class CountTags extends CommandLineFunction {
  @Output(doc="output count file", shortName = "outCount", fullName = "out_count_file", required = true) 
  var outCount: File = _
  
- @Argument(doc="species name", shortName = "s", fullName = "species", required = true) 
- var species: String = _
+ @Argument(doc="annotation file to get counts from", shortName = "a", fullName = "tags_annotation", required = true) 
+ var tags_annotation: String = _
  
  @Output(doc="flip the strands", shortName = "f", fullName = "flip", required = false) 
  var flip: String = _
- 
- def commandLine = "python /nas3/ppliu/gscripts/count_tags_c.py " + 
+
+ this.nCoresRequest = Option(16)
+ override def shortDescription = "count_tags"  
+ def commandLine = "count_tags.py " + 
   		    required("--bam_file", inBam) + 
-		    required("--species", species) + 
+		    required("--annotation_file", tags_annotation) +
 		    optional("--flip", flip) +
-		    required("--outCount", outCount)  
+		    required("--out_file", outCount)  
 		    
  this.isIntermediate = false
 }

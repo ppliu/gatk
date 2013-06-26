@@ -5,7 +5,7 @@ import java.io.File
 import org.broadinstitute.sting.queue.function.CommandLineFunction
 
 class CalculateNRF(@Input inBam: File, @Output outNRF: File, @Argument genomeSize: String) extends CommandLineFunction {
-
+  override def shortDescription = "CalculateNRF"
   def commandLine = "calculate_NRF.py " + required("--bam", inBam) + required("--genome", genomeSize) + " > " + outNRF
 
 }

@@ -10,7 +10,7 @@ class MakeTrackHub(@Input bwFiles: List[File], @Argument location: String) exten
 
   //@Argument(doc="Location") 
   //var location: String = _
-
+  override def shortDescription = "MakeTrackHub"
   def commandLine = "make_trackhubs.py" + repeat(bwFiles) + required("--location", location)
 
 }

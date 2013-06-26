@@ -23,7 +23,7 @@ class GenomeCoverageBed extends CommandLineFunction {
  
  @Argument(doc="split gapped alignments", shortName = "split", fullName = "split", required = false) 
  var split: Boolean = true 
-
+ override def shortDescription = "GenomeCoverageBed"
  def commandLine = "genomeCoverageBed " + 
   		    optional("-strand", strand) + 
 		    conditional(split, "-split") + 
@@ -32,3 +32,4 @@ class GenomeCoverageBed extends CommandLineFunction {
 		    optional("-i", inBed) +  
 		    required("-g", genomeSize) + " > " + bedGraph
  this.isIntermediate = true
+}

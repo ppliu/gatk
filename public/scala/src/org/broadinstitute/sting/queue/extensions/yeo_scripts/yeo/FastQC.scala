@@ -5,7 +5,7 @@ import org.broadinstitute.sting.queue.function.CommandLineFunction
 import org.broadinstitute.sting.commandline.Input
 
 class FastQC(@Input inFastq: File) extends CommandLineFunction {
-
+  override def shortDescription = "FastQC"
   def commandLine = "fastqc %s".format(inFastq)
 
 }
