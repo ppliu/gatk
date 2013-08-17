@@ -4,13 +4,12 @@ import org.broadinstitute.sting.commandline._
 import java.io.File
 import org.broadinstitute.sting.queue.function.CommandLineFunction
 
-class MakeTrackHub(@Input bwFiles: List[File], @Argument location: String) extends CommandLineFunction {
-  //@Input(doc="Bam file to sort") 
-  //var bwFiles: List[File] = Nil 
-
-  //@Argument(doc="Location") 
-  //var location: String = _
+class MakeTrackHub(@Input bwFiles: List[File], @Argument location: String, @Argument genome: String) extends CommandLineFunction {
+  
   override def shortDescription = "MakeTrackHub"
-  def commandLine = "make_trackhubs.py" + repeat(bwFiles) + required("--location", location)
+  def commandLine = "make_trackhubs.py" + 
+      		     repeat(bwFiles) + 
+		     required("--hub", location) +
+		     required("--genome", genome)
 
 }

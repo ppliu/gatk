@@ -9,5 +9,5 @@ class Cutadapt(@Input inFastq: File, @Output outFastq: File, @Output report: Fil
  
   override def shortDescription = "cutadapt"
   def commandLine = "cutadapt -f fastq --match-read-wildcards --times 2" + optional("-e", error_rate) + optional("-O", overlap) + optional("--quality-cutoff", quality_cutoff) + optional("-m", length) + repeat("-b", anywhere) + repeat("-f", front) + required("-o", outFastq) + required(inFastq) + " > " + report
-  this.isIntermediate = true
+  this.isIntermediate = false
 }

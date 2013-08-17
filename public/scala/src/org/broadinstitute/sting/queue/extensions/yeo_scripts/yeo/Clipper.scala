@@ -5,6 +5,7 @@ import java.io.File
 import org.broadinstitute.sting.queue.function.CommandLineFunction
 
 class Clipper(@Input inBam: File, @Argument species: String, @Argument premRNA: Boolean, @Output outBed: File) extends CommandLineFunction {
+ 
   override def shortDescription = "clipper"
   this.nCoresRequest = Option(16)
   
@@ -15,5 +16,5 @@ class Clipper(@Input inBam: File, @Argument species: String, @Argument premRNA: 
     conditional(premRNA, "--premRNA") +
     required("--bonferroni") +
     required("--superlocal") +
-    required("--threshold-method binomial"
+    required("--threshold-method", "binomial")
 }

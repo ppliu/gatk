@@ -6,7 +6,7 @@ import org.broadinstitute.sting.queue.function.CommandLineFunction
 
 class RiboSeqCoverage(@Input inBam: File, @Output outBed: File) extends CommandLineFunction {
   override def shortDescription = "RiboSeqCoverage"
-  def commandLine = "python /nas3/gpratt/gscripts/riboseq/riboseq_coverage.py " +
+  def commandLine = "riboseq_coverage.py " +
   required("--bam", inBam) +  
   required("--out", outBed) 
 }

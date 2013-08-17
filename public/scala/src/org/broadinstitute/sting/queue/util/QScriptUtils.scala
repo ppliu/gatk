@@ -62,6 +62,19 @@ object QScriptUtils {
     list
   }
 
+
+  def createArgsFromFile(in: File) : List[Tuple2[File, String]] = {
+    var list: List[Tuple2[File, String]] = Nil
+    for (file <- fromFile(in).getLines()) {
+      if (!file.startsWith("#") && !file.isEmpty ) { 
+        var arrayInfo = file.trim().split("\t")
+        list :+= Tuple2(new File(arrayInfo(0)), arrayInfo(1))
+      }
+    }
+
+    list
+  }
+
   /**
    * Returns the number of contigs in the BAM file header.
    */
