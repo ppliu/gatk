@@ -15,6 +15,8 @@ class STAR extends CommandLineFunction {
  
  @Argument(doc="genome location", shortName = "genome", fullName = "genome", required = true) 
  var genome: String = _
+
+ 
  
  @Argument(doc="maximum number of reads to multimap", 
      shortName = "multimapNMax", 
@@ -26,6 +28,9 @@ class STAR extends CommandLineFunction {
       fullName = "outFilterMultimapScoreRange", required = true) 
   var outFilterMultimapScoreRange: Int = 1
  
+ @Argument(doc="use intronMotif", shortName = "intronMotif", fullName = "intronMotif", required = false) 
+ var intronMotif: Boolean = false
+
  this.nCoresRequest = Option(16) 
  override def shortDescription = "STAR"  
  def commandLine = "STAR " +
@@ -38,6 +43,8 @@ class STAR extends CommandLineFunction {
   		required("--outFilterMultimapNmax", multimapNMax) +
   		required("--outFilterMultimapScoreRange", outFilterMultimapScoreRange ) +
   		required("--outFileNamePrefix", outSam) +
-  		required("--outStd", "SAM") + "> " + outSam
+  		conditional(intronMotif, "--outSAMstrandField intronMotif") +
+		required("--outStd", "SAM") + "> " + outSam
+		
  //this.isIntermediate = true
 }

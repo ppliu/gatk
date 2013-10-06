@@ -8,7 +8,6 @@ class Clipper(@Input inBam: File, @Argument species: String, @Argument premRNA: 
  
   override def shortDescription = "clipper"
   this.nCoresRequest = Option(16)
-  
   def commandLine = "clipper " +
     required("-b", inBam) +
     required("-s", species) +
