@@ -421,24 +421,26 @@ class QGraph extends Logging {
       var lastRunningCheck = System.currentTimeMillis
       var logNextStatusCounts = true
       var startedJobsToEmail = Set.empty[FunctionEdge]
-
+      
       while (running && readyJobs.size + runningJobs.size > 0) {
 
         var startedJobs = Set.empty[FunctionEdge]
         var doneJobs = Set.empty[FunctionEdge]
         var failedJobs = Set.empty[FunctionEdge]
 
-        while (running && readyJobs.size > 0 && !readyRunningCheck(lastRunningCheck)) {
+        while (running && readyJobs.size > 0 && !readyRunningCheck(lastRunningCheck) && runningJobs.size < 45) {
           val edge = readyJobs.head
           edge.runner = newRunner(edge.function)
           edge.start()
           messengers.foreach(_.started(jobShortName(edge.function)))
           startedJobs += edge
+	  //Hack so I can limit the number of jobs submitted
+	  runningJobs += edge
           readyJobs -= edge
           logNextStatusCounts = true
         }
 
-        runningJobs ++= startedJobs
+        
         startedJobsToEmail ++= startedJobs
         statusCounts.pending -= startedJobs.size
         statusCounts.running += startedJobs.size
