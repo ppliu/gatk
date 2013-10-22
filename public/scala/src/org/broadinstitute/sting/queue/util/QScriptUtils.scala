@@ -63,12 +63,16 @@ object QScriptUtils {
   }
 
 
-  def createArgsFromFile(in: File) : List[Tuple2[File, String]] = {
-    var list: List[Tuple2[File, String]] = Nil
+  def createArgsFromFile(in: File) : List[Tuple3[File, String, String]] = {
+    var list: List[Tuple3[File, String, String]] = Nil
     for (file <- fromFile(in).getLines()) {
       if (!file.startsWith("#") && !file.isEmpty ) { 
         var arrayInfo = file.trim().split("\t")
-        list :+= Tuple2(new File(arrayInfo(0)), arrayInfo(1))
+	if(arrayInfo.size == 3) {
+           list :+= Tuple3(new File(arrayInfo(0)), arrayInfo(1), arrayInfo(2))
+	} else {
+	   list :+= Tuple3(new File(arrayInfo(0)), arrayInfo(1), "null")
+	}
       }
     }
 
