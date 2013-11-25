@@ -30,5 +30,6 @@ class Clipper extends CommandLineFunction {
     conditional(premRNA, "--premRNA") +
     required("--bonferroni") +
     conditional(superlocal, "--superlocal") +
-    required("--threshold-method", "binomial")
+    required("--threshold-method", "binomial") +
+    required("--save-pickle")
 }

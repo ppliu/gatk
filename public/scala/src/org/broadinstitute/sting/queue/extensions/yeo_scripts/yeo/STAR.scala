@@ -6,7 +6,7 @@ import org.broadinstitute.sting.queue.function.CommandLineFunction
 
 class STAR extends CommandLineFunction {
 
-  
+ 
  @Input(doc="input fastq file", shortName = "inFastq", fullName = "input_fastq_file", required = true) 
  var inFastq: File = _
  
@@ -31,6 +31,10 @@ class STAR extends CommandLineFunction {
  @Argument(doc="use intronMotif", shortName = "intronMotif", fullName = "intronMotif", required = false) 
  var intronMotif: Boolean = false
 
+ @Argument(doc="fastq is compressed", shortName = "isCompressed", fullName = "isCompressed", required = false)
+ var isCompressed: Boolean = false
+
+
  this.nCoresRequest = Option(16) 
  override def shortDescription = "STAR"  
  def commandLine = "STAR " +
@@ -44,6 +48,7 @@ class STAR extends CommandLineFunction {
   		required("--outFilterMultimapScoreRange", outFilterMultimapScoreRange ) +
   		required("--outFileNamePrefix", outSam) +
   		conditional(intronMotif, "--outSAMstrandField intronMotif") +
+        conditional(isCompressed, "--readFilesCommand zcat")+
 		required("--outStd", "SAM") + "> " + outSam
 		
  //this.isIntermediate = true

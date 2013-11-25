@@ -15,7 +15,7 @@ class CountTags extends CommandLineFunction {
  @Argument(doc="annotation file to get counts from", shortName = "a", fullName = "tags_annotation", required = true) 
  var tags_annotation: String = _
  
- @Output(doc="flip the strands", shortName = "f", fullName = "flip", required = false) 
+ @Argument(doc="flip the strands", shortName = "f", fullName = "flip", required = false) 
  var flip: String = _
 
  this.nCoresRequest = Option(16)
