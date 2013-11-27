@@ -70,8 +70,10 @@ object QScriptUtils {
         var arrayInfo = file.trim().split("\t")
 	if(arrayInfo.size == 3) {
            list :+= Tuple3(new File(arrayInfo(0)), arrayInfo(1), arrayInfo(2))
-	} else {
+	} else if(arrayInfo.size == 2) {
 	   list :+= Tuple3(new File(arrayInfo(0)), arrayInfo(1), "null")
+	} else {
+	   list :+= Tuple3(new File(arrayInfo(0)), "null", "null")
 	}
       }
     }
