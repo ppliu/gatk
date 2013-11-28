@@ -10,13 +10,14 @@ class STAR extends CommandLineFunction {
  @Input(doc="input fastq file", shortName = "inFastq", fullName = "input_fastq_file", required = true) 
  var inFastq: File = _
  
+ @Input(doc="input fastq pair file", shortName = "inFastqPair", fullName = "input_fastq_pair_file", required = false) 
+ var inFastqPair: File = _ 
+
  @Output(doc="output sam file", shortName = "outSam", fullName = "out_sam_file", required = true) 
  var outSam: File = _
  
  @Argument(doc="genome location", shortName = "genome", fullName = "genome", required = true) 
  var genome: String = _
-
- 
  
  @Argument(doc="maximum number of reads to multimap", 
      shortName = "multimapNMax", 
@@ -43,13 +44,14 @@ class STAR extends CommandLineFunction {
   		required("--genomeDir", genome) +
   		required("--genomeLoad", "LoadAndRemove") +
   		required("--readFilesIn", inFastq) +
+      optional(inFastqPair) +
   		required("--outSAMunmapped", "Within") +
   		required("--outFilterMultimapNmax", multimapNMax) +
   		required("--outFilterMultimapScoreRange", outFilterMultimapScoreRange ) +
   		required("--outFileNamePrefix", outSam) +
   		conditional(intronMotif, "--outSAMstrandField intronMotif") +
-        conditional(isCompressed, "--readFilesCommand zcat")+
-		required("--outStd", "SAM") + "> " + outSam
+      conditional(isCompressed, "--readFilesCommand zcat")+
+		  required("--outStd", "SAM") + "> " + outSam
 		
  //this.isIntermediate = true
 }
