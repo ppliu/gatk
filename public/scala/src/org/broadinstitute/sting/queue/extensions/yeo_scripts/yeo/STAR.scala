@@ -35,8 +35,8 @@ class STAR extends CommandLineFunction {
  @Argument(doc="fastq is compressed", shortName = "isCompressed", fullName = "isCompressed", required = false)
  var isCompressed: Boolean = false
 
-
  this.nCoresRequest = Option(16) 
+ var gzip_regex = ".gz$".r
  override def shortDescription = "STAR"  
  def commandLine = "STAR " +
   		required("--runMode", "alignReads") +
@@ -44,14 +44,14 @@ class STAR extends CommandLineFunction {
   		required("--genomeDir", genome) +
   		required("--genomeLoad", "LoadAndRemove") +
   		required("--readFilesIn", inFastq) +
-      optional(inFastqPair) +
-  		required("--outSAMunmapped", "Within") +
+      		optional(inFastqPair) +
+		required("--outSAMunmapped", "Within") +
   		required("--outFilterMultimapNmax", multimapNMax) +
   		required("--outFilterMultimapScoreRange", outFilterMultimapScoreRange ) +
   		required("--outFileNamePrefix", outSam) +
   		conditional(intronMotif, "--outSAMstrandField intronMotif") +
-      conditional(isCompressed, "--readFilesCommand zcat")+
-		  required("--outStd", "SAM") + "> " + outSam
+		conditional(gzip_regex.findFirstIn(inFastq.toString()) != None, "--readFilesCommand zcat")+
+		required("--outStd", "SAM") + "> " + outSam
 		
  //this.isIntermediate = true
 }
