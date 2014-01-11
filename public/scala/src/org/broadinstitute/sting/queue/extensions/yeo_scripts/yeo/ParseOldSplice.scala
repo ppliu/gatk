@@ -1,0 +1,22 @@
+package org.broadinstitute.sting.queue.extensions.yeo
+
+import org.broadinstitute.sting.commandline._
+import java.io.File
+import org.broadinstitute.sting.queue.function.CommandLineFunction
+
+class ParseOldSplice extends CommandLineFunction {
+
+ @Input(doc="input sample file", shortName = "sample", fullName = "input_sample_files", required = true) 
+ var inBam: List[File] = Nil
+ 
+ @Argument(doc="species name", shortName = "s", fullName = "species", required = true) 
+ var species: String = _
+
+ val make_input:(File)=> String = (x) => x.toString + " " + x.getName.split("""\.""")(0)  
+ 
+ def commandLine = "parse_oldsplice.py " + 
+     		    repeat("--bam_file", inBam map make_input) + 
+		    required("--species", species) 
+					      			        
+ this.isIntermediate = false
+}
