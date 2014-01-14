@@ -10,13 +10,13 @@ class ParseOldSplice extends CommandLineFunction {
  var inBam: List[File] = Nil
  
  @Argument(doc="species name", shortName = "s", fullName = "species", required = true) 
- var species: String = _
+ var in_species: String = _
 
  val make_input:(File)=> String = (x) => x.toString + " " + x.getName.split("""\.""")(0)  
  
  def commandLine = "parse_oldsplice.py " + 
      		    repeat("--bam_file", inBam map make_input) + 
-		    required("--species", species) 
+		    required("--species", in_species) 
 					      			        
  this.isIntermediate = false
 }
