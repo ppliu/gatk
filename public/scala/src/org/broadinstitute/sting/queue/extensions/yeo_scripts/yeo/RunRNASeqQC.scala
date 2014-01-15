@@ -23,6 +23,9 @@ class RunRNASeQC extends CommandLineFunction {
  
  @Argument(doc="reads are single ended", shortName = "single_end", fullName = "single_end", required = false) 
  var singleEnd: Boolean = true
+ 
+ override def shortDescription = "RunRNASeQC"
+
  def commandLine = "java -jar /home/yeo-lab/software/rnaseqc/RNA-SeQC_v1.1.7.jar " + 
 		     optional("-gc", gc) +
 		     optional("-o", output) +
