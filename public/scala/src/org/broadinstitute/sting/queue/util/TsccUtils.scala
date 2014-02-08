@@ -168,6 +168,15 @@ def gcLocation(genome: String) : String = {
    retval
   }
 
+def snpDbLocation(genome: String) : String = {
+  //Returns star genome Location for TSCC, could eventually be factored out into conf file
+
+   var retval = "none"
+   if (genome == "hg19") {
+      retval = "/projects/ps-yeolab/genomes/hg19/snp137.txt.gz"
+   }
+   retval
+  }
 
 
 }
