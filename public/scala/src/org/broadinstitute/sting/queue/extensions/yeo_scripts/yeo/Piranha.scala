@@ -12,9 +12,9 @@ class Piranha extends CommandLineFunction {
  @Output(doc="bed file of peaks to output", shortName = "outBed", fullName = "outBed", required = true)
  var outBed: File = _
  
-  override def shortDescription = "Piranah"
+  override def shortDescription = "Piranha"
   
-  def commandLine = "run_piranah.py " +
+  def commandLine = "run_piranha.py " +
     required("-b", inBam) +
     required("-s", 100) +
     required("-p", .05) +
