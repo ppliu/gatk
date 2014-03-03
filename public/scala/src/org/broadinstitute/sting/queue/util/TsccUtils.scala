@@ -111,9 +111,9 @@ object TsccUtils {
 
    var retval = "none"
    if (genome == "hg19") {
-      retval = "/home/gpratt/clipper/clipper/data/hg19.AS.STRUCTURE.COMPILED.bed"
+      retval = "/home/gpratt/clipper/clipper/data/regions/hg19_genes.bed"
    }else if(genome == "mm9") {
-      retval = "/home/gpratt/clipper/clipper/data/mm9.AS.STRUCTURE.COMPILED.bed"
+      retval = "/home/gpratt/clipper/clipper/data/region/mm9_genes.bed"
    }
 
    retval
