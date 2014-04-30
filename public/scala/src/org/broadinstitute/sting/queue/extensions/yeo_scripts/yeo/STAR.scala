@@ -66,7 +66,7 @@ class STAR extends CommandLineFunction {
     required("--outReadsUnmapped", "Fastx") + 
     required("--outFilterScoreMin", "10") +
     required("--outSAMunmapped", "Within") +
-     + "> " + outSam
+     "> " + outSam
 		
  //this.isIntermediate = true
 }
