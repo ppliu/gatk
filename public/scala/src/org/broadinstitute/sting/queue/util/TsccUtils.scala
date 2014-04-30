@@ -24,9 +24,11 @@ object TsccUtils {
 
    var retval = "none"
    if (genome == "hg19") {
-      retval = "/projects/ps-yeolab/genomes/hg19/star"
+      retval = "/projects/ps-yeolab/genomes/hg19/star_sjdb"
    }else if(genome == "mm9") {
       retval = "/projects/ps-yeolab/genomes/mm9/star"
+   }else if(genome == "mm10") {
+      retval = "/projects/ps-yeolab/genomes/mm10/star_sjdb"
    }else if(genome == "ce10") {
       retval = "/projects/ps-yeolab/genomes/ce10/star"
    }else if(genome == "dm3") {
