@@ -45,6 +45,10 @@ class QSettings {
   @ClassType(classOf[Int])
   var jobPriority: Option[Int] = None
 
+  @Argument(fullName="job_limit", shortName="jobLimit", doc="Number of jobs to run at the same time", required=false)
+  @ClassType(classOf[Int])
+  var jobLimit: Int = 45
+
   @Argument(fullName="job_native_arg", shortName="jobNative", doc="Native arguments to pass to the job runner.", required=false)
   var jobNativeArgs: Seq[String] = Nil
 

@@ -6,7 +6,7 @@ import org.broadinstitute.sting.queue.function.CommandLineFunction
 
 class NormalizeBedGraph(@Input inBedGraph: File, @Input inBam: File, @Output outBedGraph: File) extends CommandLineFunction {
   override def shortDescription = "NormalizeBedGraph"
-  def commandLine = "python ~/gscripts/gscripts/general/normalize_bedGraph.py " + 
+  def commandLine = "normalize_bedGraph.py " + 
       		    required("--bg", inBedGraph) +
 		    required("--bam", inBam) +  
 		    " > " + required(outBedGraph)

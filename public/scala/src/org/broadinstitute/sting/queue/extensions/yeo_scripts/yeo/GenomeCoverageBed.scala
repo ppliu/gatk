@@ -24,12 +24,21 @@ class GenomeCoverageBed extends CommandLineFunction {
  @Argument(doc="split gapped alignments", shortName = "split", fullName = "split", required = false) 
  var split: Boolean = true 
  override def shortDescription = "GenomeCoverageBed"
- def commandLine = "genomeCoverageBed " + 
-  		    optional("-strand", strand) + 
-		    conditional(split, "-split") + 
+
+ 
+ 
+ //This is a huge hack to flip second strand reads to first strand for pe data without effecting the rest of the pipeline
+ //need to refactor to take into account bam (se and pe) and bed in a way thats readable 
+  def commandLine = conditional(inBam != null, "samtools view -h " + inBam + 
+      		    " | awk 'BEGIN {OFS=\"\\t\"} {if(!!and($2,0x0080)) {if(!!and($2, 0x0004)) {$2 = $2 - 16} else {$2 = $2 + 16}}; print $0}' " +
+		    " | samtools view -bS - | genomeCoverageBed -ibam stdin ", escape=false) +
+      		    conditional(inBed != null, "genomeCoverageBed") +
+		    optional("-i", inBed) +   
 		    required("-bg") + 
-		    optional("-ibam", inBam) +
-		    optional("-i", inBed) +  
-		    required("-g", genomeSize) + " > " + bedGraph
+		    optional("-strand", strand) + 
+		    conditional(split, "-split") + 
+		    required("-g", genomeSize) +  
+		    required(">", bedGraph, escape=false)
+
  this.isIntermediate = true
 }
