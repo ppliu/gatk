@@ -155,6 +155,8 @@ object TsccUtils {
       retval = "/projects/ps-yeolab/genomes/hg19/gencode_v17/gencode.v17.annotation.exons.bed"
    }else if(genome == "mm9") {
       retval = "/projects/ps-yeolab/genomes/mm9/Mus_musculus.NCBIM37.64.fixed.exons.bed"
+   }else if(genome == "ce10") {
+      retval = "/projects/ps-yeolab/genomes/ce10/ce10.exons.BED"
    }
 
    retval
