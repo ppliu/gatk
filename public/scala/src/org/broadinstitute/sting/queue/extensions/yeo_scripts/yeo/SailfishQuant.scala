@@ -30,7 +30,7 @@ class SailfishQuant extends CommandLineFunction {
   		required("--libtype", ltype) +
   		required("-1", inFastq) +
         optional("-2", inFastqPair) + 
-  		required("--out", outbase) +
+  		required("--out", outbase)
 		
  //this.isIntermediate = true
 }
