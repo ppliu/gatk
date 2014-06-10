@@ -35,23 +35,37 @@ class STAR extends CommandLineFunction {
  @Argument(doc="fastq is compressed", shortName = "isCompressed", fullName = "isCompressed", required = false)
  var isCompressed: Boolean = false
 
+@Argument(doc="use alpha version of STAR instead of normal version", shortName = "alpha", fullName = "alphaStar", required = false)
+ var alpha: Boolean = false
 
  this.nCoresRequest = Option(16) 
+ var gzip_regex = ".gz$".r
+ 
  override def shortDescription = "STAR"  
- def commandLine = "STAR " +
+ var STAR = "STAR "
+ if(alpha) {
+ 	   STAR = "~/software/STAR_2.3.1x/STAR "
+ }
+
+ def commandLine = STAR +
   		required("--runMode", "alignReads") +
   		required("--runThreadN", "16") +
   		required("--genomeDir", genome) +
   		required("--genomeLoad", "LoadAndRemove") +
   		required("--readFilesIn", inFastq) +
-      optional(inFastqPair) +
-  		required("--outSAMunmapped", "Within") +
+      		optional(inFastqPair) +
+		required("--outSAMunmapped", "Within") +
   		required("--outFilterMultimapNmax", multimapNMax) +
   		required("--outFilterMultimapScoreRange", outFilterMultimapScoreRange ) +
   		required("--outFileNamePrefix", outSam) +
+		required("--outSAMattributes", "All") +  
   		conditional(intronMotif, "--outSAMstrandField intronMotif") +
-      conditional(isCompressed, "--readFilesCommand zcat")+
-		  required("--outStd", "SAM") + "> " + outSam
+		conditional(gzip_regex.findFirstIn(inFastq.toString()) != None, "--readFilesCommand zcat")+
+		required("--outStd", "SAM") +
+		required("--outFilterType", "BySJout") + 
+    		required("--outReadsUnmapped", "Fastx") + 
+    		required("--outFilterScoreMin", "10") +
+     		"> " + outSam
 		
  //this.isIntermediate = true
 }
