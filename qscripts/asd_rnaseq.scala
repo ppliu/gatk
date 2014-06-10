@@ -145,6 +145,7 @@ def stringentJobs(fastqFile: File) : File = {
       return filteredFastq
 }
 
+/*
 def makeBigWig(inBam: File, species: String): (File, File) = {
 
       val bedGraphFilePos = swapExt(inBam, ".bam", ".pos.bg")
@@ -171,6 +172,8 @@ def makeBigWig(inBam: File, species: String): (File, File) = {
       return (bigWigFileNegNorm, bigWigFilePosNorm)
 
 }
+
+*/
 
 def script() {
 
@@ -215,16 +218,16 @@ def script() {
       }
 
       val sortedBamFile = swapExt(samFile, ".sam", ".sorted.bam")
-      val indexedBamFile = swapExt(SortedBamFile, "", ".bai")
+      val indexedBamFile = swapExt(sortedBamFile, "", ".bai")
       
-      val countFile = swapExt(SortedBamFile, "bam", "count")
+      val countFile = swapExt(sortedBamFile, "bam", "count")
       val RPKMFile = swapExt(countFile, "count", "rpkm")
       
-      bamFiles = bamFiles ++ List(SortedBamFile)
+      bamFiles = bamFiles ++ List(sortedBamFile)
       
       add(new sortSam(samFile, sortedBamFile, SortOrder.coordinate))
-      add(new samtoolsIndexFunction(rgSortedBamFile, indexedBamFile))
-      add(new countTags(input = rgSortedBamFile, index = indexedBamFile, output = countFile, species = species))	
+      add(new samtoolsIndexFunction(sortedBamFile, indexedBamFile))
+      add(new countTags(input = sortedBamFile, index = indexedBamFile, output = countFile, species = species))	
       add(new singleRPKM(input = countFile, output = RPKMFile, s = species))
 
     }
