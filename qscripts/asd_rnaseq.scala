@@ -116,11 +116,13 @@ class AsdRNASeq extends QScript {
 
   }
 
-}
+
   
 
  @Argument(doc="reads are single ended", shortName = "single_end", fullName = "single_end", required = false)
  var singleEnd: Boolean = true
+
+
 
 def stringentJobs(fastqFile: File) : File = {
 
@@ -226,7 +228,9 @@ def script() {
       add(new singleRPKM(input = countFile, output = RPKMFile, s = species))
 
     }
-  }
+
+  } 
+ 
 }
 
 
