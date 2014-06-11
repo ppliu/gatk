@@ -16,7 +16,13 @@ class AsdRNASeq extends QScript {
   @Input(doc = "input file or txt file of input files")
   var input: File = _
 
-  @Argument(doc = "adapter to trim")
+  @Input(doc = "sailfish index")
+  var sailindex: File = _
+
+  @Input(doc = "cufflinks reference genome")
+  var cuffref: File = _
+
+  @Argument(doc = "adapter to trim", required=false)
   var adapter: List[String] = Nil
 
   @Argument(doc = "flipped", required = false)
@@ -222,14 +228,18 @@ def script() {
       
       val countFile = swapExt(sortedBamFile, "bam", "count")
       val RPKMFile = swapExt(countFile, "count", "rpkm")
-      
+      val sailFishFile = new File(fastqFiles(0))      
+
       bamFiles = bamFiles ++ List(sortedBamFile)
       
+
       add(new sortSam(samFile, sortedBamFile, SortOrder.coordinate))
       add(new samtoolsIndexFunction(sortedBamFile, indexedBamFile))
       add(new countTags(input = sortedBamFile, index = indexedBamFile, output = countFile, species = species))	
       add(new singleRPKM(input = countFile, output = RPKMFile, s = species))
 
+      add(new sailfishquant(input=fastqFile, paired=fastqPair, output=sailFishFile, indexFile=sailindex, libraryType="\"T=PE\""))
+      add(new cuffquant(input=sortedBamFile, genomeFile=cuffref, libraryType="fr-firststrand"))
     }
 
   } 
