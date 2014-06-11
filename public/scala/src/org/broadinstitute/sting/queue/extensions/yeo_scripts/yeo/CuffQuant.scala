@@ -9,9 +9,6 @@ class CuffQuant extends CommandLineFunction {
  
  @Input(doc="input bam file", shortName = "inBam", fullName = "input_bam_file", required = true) 
  var inBam: File = _
-
- @Output(doc="output sam file", shortName = "outSam", fullName = "out_sam_file", required = true) 
- var outSam: File = _
  
  @Argument(doc="genome location", shortName = "genome", fullName = "genome", required = true) 
  var genome: String = _
