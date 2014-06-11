@@ -193,7 +193,7 @@ def script() {
       
       val countFile = swapExt(sortedBamFile, "bam", "count")
       val RPKMFile = swapExt(countFile, "count", "rpkm")
-      val sailFishFile = new File(fastqFiles(0))      
+      val sailFishFile = swapExt(samFile, ".fastq.gz.sam", ".sail")     
 
       bamFiles = bamFiles ++ List(sortedBamFile)
       
