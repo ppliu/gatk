@@ -113,7 +113,6 @@ class AsdRNASeq extends QScript {
 
   }
 
-
   case class cuffquant(input: File, genomeFile: File, libraryType: String) extends CuffQuant{
 
     this.inBam = input
@@ -122,13 +121,8 @@ class AsdRNASeq extends QScript {
 
   }
 
-
-  
-
  @Argument(doc="reads are single ended", shortName = "single_end", fullName = "single_end", required = false)
  var singleEnd: Boolean = true
-
-
 
 def stringentJobs(fastqFile: File) : File = {
 
@@ -151,35 +145,6 @@ def stringentJobs(fastqFile: File) : File = {
       return filteredFastq
 }
 
-/*
-def makeBigWig(inBam: File, species: String): (File, File) = {
-
-      val bedGraphFilePos = swapExt(inBam, ".bam", ".pos.bg")
-      val bedGraphFilePosNorm = swapExt(bedGraphFilePos, ".bg", ".norm.bg")
-      val bigWigFilePosNorm = swapExt(bedGraphFilePosNorm, ".bg", ".bw")
-      val bigWigFilePos = swapExt(bedGraphFilePos, ".bg", ".bw")
-
-      val bedGraphFileNeg = swapExt(inBam, ".bam", ".neg.bg")
-      val bedGraphFileNegInverted = swapExt(bedGraphFileNeg, ".bg", ".t.bg")
-      val bedGraphFileNegInvertedNorm = swapExt(bedGraphFileNegInverted, ".bg", ".norm.bg")
-      val bigWigFileNegNorm = swapExt(bedGraphFileNegInvertedNorm, ".bg", ".bw")
-      val bigWigFileNeg = swapExt(bedGraphFileNegInverted, ".bg", ".bw")
-
-      add(new genomeCoverageBed(input = inBam, outBed = bedGraphFilePos, cur_strand = "+", species = species))
-      add(new NormalizeBedGraph(inBedGraph = bedGraphFilePos, inBam = inBam, outBedGraph = bedGraphFilePosNorm))
-      add(new BedGraphToBigWig(bedGraphFilePosNorm, chromSizeLocation(species), bigWigFilePosNorm))
-      add(new BedGraphToBigWig(bedGraphFilePos, chromSizeLocation(species), bigWigFilePos))
-
-      add(new genomeCoverageBed(input = inBam, outBed = bedGraphFileNeg, cur_strand = "-", species = species))
-      add(new NegBedGraph(inBedGraph = bedGraphFileNeg, outBedGraph = bedGraphFileNegInverted))
-      add(new NormalizeBedGraph(inBedGraph = bedGraphFileNegInverted, inBam = inBam, outBedGraph = bedGraphFileNegInvertedNorm))
-      add(new BedGraphToBigWig(bedGraphFileNegInvertedNorm, chromSizeLocation(species), bigWigFileNegNorm))
-      add(new BedGraphToBigWig(bedGraphFileNegInverted, chromSizeLocation(species), bigWigFileNeg))
-      return (bigWigFileNegNorm, bigWigFilePosNorm)
-
-}
-
-*/
 
 def script() {
 
