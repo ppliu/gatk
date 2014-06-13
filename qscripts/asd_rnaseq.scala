@@ -36,9 +36,6 @@ class AsdRNASeq extends QScript {
 
   @Argument(doc = "start processing run from bam file")
   var fromBam: Boolean = false
-
-  @Argument(doc = "location to place trackhub (must have the rest of the track hub made before starting script)")
-  var location: String = "rna_seq"
     
   case class sortSam(inSam: File, outBam: File, sortOrderP: SortOrder) extends SortSam {
     override def shortDescription = "sortSam"
@@ -203,7 +200,7 @@ def script() {
       add(new countTags(input = sortedBamFile, index = indexedBamFile, output = countFile, species = species))	
       add(new singleRPKM(input = countFile, output = RPKMFile, s = species))
 
-      add(new sailfishquant(input=fastqFile, paired=fastqPair, output=sailFishFile, indexFile=sailindex, libraryType="\"T=PE\""))
+      add(new sailfishquant(input=fastqFile, paired=fastqPair, output=sailFishFile, indexFile=sailindex, libraryType="T=PE"))
       add(new cuffquant(input=sortedBamFile, genomeFile=cuffref, libraryType="fr-firststrand"))
     }
 
