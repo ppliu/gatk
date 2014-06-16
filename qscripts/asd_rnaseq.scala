@@ -43,6 +43,7 @@ class AsdRNASeq extends QScript {
     this.output = outBam
     this.sortOrder = sortOrderP
     this.createIndex = true
+    this.nCoresRequest = Option(16)
   }
 
   case class filterRepetitiveRegions(noAdapterFastq: File, filteredResults: File, filteredFastq: File) extends FilterRepetitiveRegions {
@@ -84,6 +85,7 @@ class AsdRNASeq extends QScript {
        override def shortDescription = "indexBam"
        this.bamFile = input
        this.bamFileIndex = output
+
   }
 
   case class cutadapt(fastqFile: File, noAdapterFastq: File, adapterReport: File, adapter: List[String]) extends Cutadapt{
@@ -193,7 +195,6 @@ def script() {
       val sailFishFile = swapExt(samFile, ".fastq.gz.sam", ".sail")     
 
       bamFiles = bamFiles ++ List(sortedBamFile)
-      
 
       add(new sortSam(samFile, sortedBamFile, SortOrder.coordinate))
       add(new samtoolsIndexFunction(sortedBamFile, indexedBamFile))
