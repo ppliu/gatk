@@ -28,8 +28,8 @@ class SailfishQuant extends CommandLineFunction {
   		required("--index", index) +
   		required("--threads", "16") +
   		required("--libtype", ltype) +
-  		required("-1", inFastq) +
-        optional("-2", inFastqPair) + 
+  		required("-1 < (gzcat "+ inFastq + ")") +
+        optional("-2 < (gzcat "+ inFastqPair +")") + 
   		required("--out", outbase)
 		
  //this.isIntermediate = true
