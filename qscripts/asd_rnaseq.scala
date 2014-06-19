@@ -56,11 +56,13 @@ class AsdRNASeq extends QScript {
   }
 
   case class singleRPKM(input: File, output: File, s: String) extends SingleRPKM {
+    override def shortDescription = "RPKMCalculation"
 	this.inCount = input
 	this.outRPKM = output
   }
 
   case class countTags(input: File, index: File, output: File, species: String) extends CountTags {
+    override def shortDescription = "CountTags"
 	this.inBam = input
 	this.outCount = output
 	this.tags_annotation = exonLocation(species)
@@ -104,6 +106,7 @@ class AsdRNASeq extends QScript {
 
   case class sailfishquant(input: File, paired: File = null, output: File, indexFile: File, libraryType: String) extends SailfishQuant{
 
+    override def shortDescription = "SailfishQuant"
     this.inFastq = input
     this.inFastqPair = paired
     this.outbase = output
@@ -114,6 +117,7 @@ class AsdRNASeq extends QScript {
 
   case class cuffquant(input: File, genomeFile: File, libraryType: String) extends CuffQuant{
 
+    override def shortDescription = "CuffQuant"
     this.inBam = input
     this.genome = genomeFile
     this.ltype = libraryType
