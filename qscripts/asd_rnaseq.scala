@@ -205,7 +205,7 @@ def script() {
       add(new countTags(input = sortedBamFile, index = indexedBamFile, output = countFile, species = species))	
       add(new singleRPKM(input = countFile, output = RPKMFile, s = species))
 
-      add(new sailfishquant(input=fastqFile, paired=fastqPair, output=sailFishFile, indexFile=sailindex, libraryType="T=PE"))
+      add(new sailfishquant(input=fastqFile, paired=fastqPair, output=sailFishFile, indexFile=sailindex, libraryType="T=PE:O=><:S=AS"))
       add(new cuffquant(input=sortedBamFile, genomeFile=cuffref, libraryType="fr-firststrand"))
     }
 
