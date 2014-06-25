@@ -67,6 +67,7 @@ class AsdRNASeq extends QScript {
 	this.outCount = output
 	this.tags_annotation = exonLocation(species)
 	this.flip = flipped
+    this.nCoresRequest = Option(16)
   }
 
   case class star(input: File, output: File, stranded : Boolean, paired : File = null, species: String) extends STAR {
@@ -196,7 +197,7 @@ def script() {
       
       val countFile = swapExt(sortedBamFile, "bam", "count")
       val RPKMFile = swapExt(countFile, "count", "rpkm")
-      val sailFishFile = swapExt(samFile, ".fastq.gz.sam", ".sail")     
+      val sailFishFile = swapExt(samFile, ".fastq.gz.sam", "_sail")     
 
       bamFiles = bamFiles ++ List(sortedBamFile)
 
