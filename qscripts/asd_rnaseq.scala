@@ -46,6 +46,7 @@ class AsdRNASeq extends QScript {
     this.nCoresRequest = Option(16)
   }
 
+
   case class filterRepetitiveRegions(noAdapterFastq: File, filteredResults: File, filteredFastq: File) extends FilterRepetitiveRegions {
        override def shortDescription = "FilterRepetitiveRegions"
 
@@ -192,6 +193,8 @@ def script() {
       	samFile = new File(fastqFiles(0))
       }
 
+      val unzippedFastq = swapExt(fastqFile, ".gz", "")
+      val unzippedPair = swapExt(fastqPair, ".gz", "")
       val sortedBamFile = swapExt(samFile, ".sam", ".sorted.bam")
       val indexedBamFile = swapExt(sortedBamFile, "", ".bai")
       
@@ -206,7 +209,10 @@ def script() {
       add(new countTags(input = sortedBamFile, index = indexedBamFile, output = countFile, species = species))	
       add(new singleRPKM(input = countFile, output = RPKMFile, s = species))
 
-      add(new sailfishquant(input=fastqFile, paired=fastqPair, output=sailFishFile, indexFile=sailindex, libraryType="T=PE:O=><:S=AS"))
+      add(new Gunzip(inFastq=fastqFile, outFastq=unzippedFastq))
+      add(new Gunzip(inFastq=fastqPair, outFastq=unzippedPair))
+
+      add(new sailfishquant(input=unzippedFastq, paired=unzippedPair, output=sailFishFile, indexFile=sailindex, libraryType="T=PE:O=><:S=AS"))
       add(new cuffquant(input=sortedBamFile, genomeFile=cuffref, libraryType="fr-firststrand"))
     }
 

@@ -22,7 +22,8 @@ class CuffQuant extends CommandLineFunction {
   		required("--library-type", ltype) +
   		required("--num-threads", "16") +
   		required(genome) +
-  		required(inBam) 
+  		required(inBam) + 
+        required("-o", inBam+"_cq") 
 		
  //this.isIntermediate = true
 }
