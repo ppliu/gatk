@@ -57,7 +57,7 @@ class STAR extends CommandLineFunction {
 		required("--outSAMunmapped", "Within") +
   		required("--outFilterMultimapNmax", multimapNMax) +
   		required("--outFilterMultimapScoreRange", outFilterMultimapScoreRange ) +
-  		required("--outFileNamePrefix", outSam) +
+  		required("--outFileNamePrefix", outSam+".") +
 		required("--outSAMattributes", "All") +  
   		conditional(intronMotif, "--outSAMstrandField intronMotif") +
 		conditional(gzip_regex.findFirstIn(inFastq.toString()) != None, "--readFilesCommand zcat")+
