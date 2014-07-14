@@ -24,6 +24,7 @@ class CuffQuant extends CommandLineFunction {
   		required(genome) +
   		required(inBam) + 
         required("-o", inBam+"_cq") 
-		
+
+ this.wallTime = Option((336 * 60 * 60).toLong)		
  //this.isIntermediate = true
 }

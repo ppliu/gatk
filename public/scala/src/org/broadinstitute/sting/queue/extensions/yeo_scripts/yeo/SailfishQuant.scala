@@ -31,6 +31,7 @@ class SailfishQuant extends CommandLineFunction {
   		required("--mates1", inFastq) +
         optional("--mates2", inFastqPair) + 
   		required("--out", outbase)
-		
+
+ this.wallTime = Option((336 * 60 * 60).toLong)
  //this.isIntermediate = true
 }

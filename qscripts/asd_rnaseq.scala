@@ -114,7 +114,7 @@ class AsdRNASeq extends QScript {
     this.outbase = output
     this.index = indexFile
     this.ltype = libraryType
-
+    this.wallTime = Option(72*60*60)
   }
 
   case class cuffquant(input: File, genomeFile: File, libraryType: String) extends CuffQuant{
@@ -123,7 +123,7 @@ class AsdRNASeq extends QScript {
     this.inBam = input
     this.genome = genomeFile
     this.ltype = libraryType
-
+    this.wallTime = Option(72*60*60)
   }
 
  @Argument(doc="reads are single ended", shortName = "single_end", fullName = "single_end", required = false)
