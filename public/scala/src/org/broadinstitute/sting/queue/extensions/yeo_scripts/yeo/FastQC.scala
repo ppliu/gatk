@@ -7,7 +7,8 @@ import org.broadinstitute.sting.commandline.Input
 
 class FastQC(@Input inFastq: File) extends CommandLineFunction {
   def perl = "/oasis/tscc/scratch/yeo-lab/ace_progenity/asd_processing/dependencies/perl-5.20.0/perl"
+  def fastqc = "/projects/ps-yeolab/ace_progenity/asd_processing/dependencies/FastQC/fastqc"
   override def shortDescription = "FastQC"
-  def commandLine = "%s fastqc %s".format(perl, inFastq)
+  def commandLine = "%s %s %s".format(perl, fastqc, inFastq)
 
 }
