@@ -42,7 +42,7 @@ class STAR extends CommandLineFunction {
  var gzip_regex = ".gz$".r
  
  override def shortDescription = "STAR"  
- var STAR = "STAR "
+ var STAR = "/oasis/tscc/scratch/yeo-lab/ace_progenity/asd_processing/dependencies/STAR_2.3.0e.Linux_x86_64/STAR "
  if(alpha) {
  	   STAR = "~/software/STAR_2.3.1x/STAR "
  }
