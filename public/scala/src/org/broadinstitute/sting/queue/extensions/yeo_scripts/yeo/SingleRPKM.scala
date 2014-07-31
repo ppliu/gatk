@@ -5,6 +5,8 @@ import java.io.File
 import org.broadinstitute.sting.queue.function.CommandLineFunction
 
 class SingleRPKM extends CommandLineFunction {
+ 
+ def rpkm_loc = "/oasis/tscc/scratch/yeo-lab/ace_progenity/asd_processing/code_repository/ASDAnalysis/python_src/rpkm_from_counts.py "
 
  @Input(doc="input count file", shortName = "inCount", fullName = "input_count_file", required = true) 
  var inCount: File = _
@@ -13,7 +15,7 @@ class SingleRPKM extends CommandLineFunction {
  var outRPKM: File = _
  
  override def shortDescription = "SingleRPKM" 
- def commandLine = "single_RPKM.py " + 
+ def commandLine = rpkm_loc + 
 		   required("--input", inCount) + 
 		   required("--output", outRPKM)  
 		   

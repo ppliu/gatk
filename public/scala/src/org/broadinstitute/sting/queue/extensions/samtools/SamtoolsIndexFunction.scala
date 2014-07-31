@@ -32,7 +32,7 @@ import org.broadinstitute.sting.commandline.{Output, Input}
  * Indexes a BAM file using samtools.
  */
 class SamtoolsIndexFunction extends SamtoolsCommandLineFunction {
-  analysisName = "samtools index"
+  analysisName = "/oasis/tscc/scratch/yeo-lab/ace_progenity/asd_processing/dependencies/samtools-0.1.19/samtools index"
 
   @Input(doc="BAM file to index")
   var bamFile: File = _

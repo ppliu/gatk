@@ -6,6 +6,7 @@ import org.broadinstitute.sting.queue.function.CommandLineFunction
 
 class SailfishQuant extends CommandLineFunction {
 
+ def sailfish_loc = "/oasis/tscc/scratch/yeo-lab/ace_progenity/asd_processing/dependencies/Sailfish-0.6.3-Linux_x86-64/bin/sailfish "
  
  @Input(doc="input fastq file", shortName = "inFastq", fullName = "input_fastq_file", required = true) 
  var inFastq: File = _
@@ -24,7 +25,7 @@ class SailfishQuant extends CommandLineFunction {
 
  this.nCoresRequest = Option(16) 
  override def shortDescription = "SailfishQuant"  
- def commandLine = "sailfish quant " +
+ def commandLine = sailfish_loc +
   		required("--index", index) +
   		required("--threads", "16") +
   		required("--libtype", ltype) +
