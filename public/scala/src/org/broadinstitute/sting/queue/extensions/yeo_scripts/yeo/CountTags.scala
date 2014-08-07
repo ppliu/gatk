@@ -22,7 +22,7 @@ class CountTags extends CommandLineFunction {
 
  this.nCoresRequest = Option(16)
  override def shortDescription = "count_tags"  
- def commandLine = counttags_loc + 
+ def commandLine = "python " + counttags_loc + 
   		    required("--bam_file", inBam) + 
 		    required("--annotation_file", tags_annotation) +
 		    optional("--flip", flip) +

@@ -33,5 +33,5 @@ import org.broadinstitute.sting.commandline.Argument
  */
 abstract class SamtoolsCommandLineFunction extends CommandLineFunction {
   @Argument(doc="samtools path")
-  var samtools: String = "/oasis/tscc/scratch/yeo-lab/ace_progenity/asd_processing/dependencies/samtools-0.1.19/samtools""
+  var samtools: String = "/oasis/tscc/scratch/yeo-lab/ace_progenity/asd_processing/dependencies/samtools-0.1.19/samtools"
 }
