@@ -26,6 +26,7 @@ class SailfishQuant extends CommandLineFunction {
  this.nCoresRequest = Option(16) 
  override def shortDescription = "SailfishQuant"  
  def commandLine = sailfish_loc +
+        required("quant") +
   		required("--index", index) +
   		required("--threads", "16") +
   		required("--libtype", ltype) +
